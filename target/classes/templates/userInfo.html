@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Пользователи</title>
+</head>
+<body>
+<div>
+    <td>
+        <th:block th:each="role : ${user.getRoles()}">
+                                    <span th:switch="${role.getName()}">
+                                        <span th:case="'ROLE_ADMIN'">  ADMIN  </span>
+                                        <span th:case="'ROLE_USER'">  USER  </span>
+                                    </span>
+        </th:block>
+    </td>
+</div>
+<div class="col-md-2" >
+
+
+    <form action="/" method="get" target="_self">
+        <button type="submit" class="btn btn-light btn-lg btn-block">USER INFO</button>
+    </form>
+
+</div>
+<table border="1">
+    <thead>
+    <tr>Пользователи</tr>
+    </thead>
+
+    <tbody>
+    <tr>
+        <th>id</th>
+        <th>firstName</th>
+        <th>lastname</th>
+        <th>age</th>
+        <th>username</th>
+        <th>role</th>
+
+    </tr>
+    <tr th:each="user:${user}">
+        <td style="text-align: center" th:text="${user.getId()}"></td>
+        <td style="text-align: center" th:text="${user.getFirstName()}"></td>
+        <td style="text-align: center"  th:text="${user.getLastName()}"></td>
+        <td style="text-align: center"  th:text="${user.getAge()}"></td>
+        <td style="text-align: center" th:text="${user.getEmail()}"></td>
+        <td style="text-align: center" th:text="${user.getAuthorities()}"></td>
+
+    </tr>
+    </tbody>
+</table>
+
+<br>
+<div class="float-right" bg-dark>
+    <form th:action="@{/logout}"
+          th:method="POST"
+          class="card-link">
+        <input type="submit" value="Logout" />
+    </form>
+</div>
+
+
+
+
+
+
+
+</body>
+</html>

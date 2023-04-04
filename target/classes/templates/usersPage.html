@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Пользователи</title>
+</head>
+<body>
+<div>
+    <td>
+        <th:block th:each="role : ${user.getRoles()}">
+                                    <span th:switch="${role.getName()}">
+                                        <span th:case="'ROLE_ADMIN'">  ADMIN  </span>
+                                        <span th:case="'ROLE_USER'">  USER  </span>
+                                    </span>
+        </th:block>
+    </td>
+</div>
+<div class="col-md-2" >
+
+
+    <form action="/" method="get" target="_self">
+        <button type="submit" class="btn btn-light btn-lg btn-block">USER INFO</button>
+    </form>
+
+</div>
+<table border="1">
+    <thead>
+    <tr>Пользователи</tr>
+    </thead>
+
+    <tbody>
+    <tr>
+        <th>id</th>
+        <th>firstName</th>
+        <th>lastname</th>
+        <th>age</th>
+        <th>username</th>
+        <th>role</th>
+        <th>action</th>
+    </tr>
+    <tr th:each="userI:${users}">
+        <td style="text-align: center" th:text="${userI.getId()}"></td>
+        <td style="text-align: center" th:text="${userI.getFirstName()}"></td>
+        <td style="text-align: center"  th:text="${userI.getLastName()}"></td>
+        <td style="text-align: center"  th:text="${userI.getAge()}"></td>
+        <td style="text-align: center" th:text="${userI.getEmail()}"></td>
+        <td style="text-align: center" th:text="${userI.getAuthorities()}"></td>
+        <td>
+            <a th:href="@{'/admin/edit/'+${userI.id}}">edit</a>
+            <a th:href="@{'/admin/delete/'+${userI.id}}">delete</a>
+
+        </td>
+    </tr>
+    </tbody>
+</table>
+<h2>Add user</h2>
+<a th:href="@{'/admin/add'}">Add new user</a>
+<br>
+<div class="float-right" bg-dark>
+    <form th:action="@{/logout}"
+          th:method="POST"
+          class="card-link">
+        <input type="submit" value="Logout" />
+    </form>
+</div>
+
+
+
+
+
+
+
+</body>
+</html>
